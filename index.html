@@ -3,157 +3,401 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goku pide perdón</title>
+    <title>Party Olym Night</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;700;900&family=Permanent+Marker&display=swap" rel="stylesheet">
+    
     <style>
-        body {
+        body, html {
+            height: 100%;
             margin: 0;
-            padding: 0;
-            height: 100vh;
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            background-color: #000; /* Fondo negro para resaltar luces */
+        }
+
+        .poster-container {
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            background-color: #f0f8ff;
-            font-family: 'Arial', sans-serif;
+            justify-content: center;
+            position: relative;
             overflow: hidden;
         }
 
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            max-width: 90%;
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+            filter: brightness(0.6); /* Oscurece un poco más la imagen para que resalten las luces */
         }
 
-        .goku-gif {
-            width: 350px;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            border: 3px solid #ff9900;
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
         }
 
-        /* Ocultar imagen por defecto */
-        .oculto-img {
-            display: none;
+        /* ✅ EFECTO: FUOCO DE LUZ CENTRAL (CÓNO) */
+        .disco-beam {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 1000px;
+            background: conic-gradient(from 0deg at 50% 0%, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.1) 10%, 
+                transparent 20%);
+            z-index: 1;
+            pointer-events: none;
+            animation: beam-rotate 4s linear infinite;
+            mix-blend-mode: screen;
         }
 
-        h1 {
-            color: #ff4d4d;
-            font-size: 2rem;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            font-weight: 900;
+        @keyframes beam-rotate {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            100% { transform: translateX(-50%) rotate(360deg); }
         }
 
-        .botones {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
+        /* ✅ EFECTO: MANCHAS DE LUZ EN EL PISO */
+        .floor-light {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            filter: blur(8px);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.8;
         }
 
-        button {
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        #btnSi {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        #btnSi:hover {
-            transform: scale(1.1);
-            background-color: #45a049;
-        }
-
-        #btnNo {
-            background-color: #f44336;
-            color: white;
+        .content {
             position: relative;
-        }
-        
-        .oculto {
-            display: none;
-        }
-
-        .mensaje-final {
-            color: #2196F3;
-            font-size: 1.8rem;
-            font-weight: bold;
-            animation: latido 1s infinite;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
         }
 
-        @keyframes latido {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        /* Tipografías y Estilos */
+        .top-invite {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .party-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin-bottom: 0;
+            text-shadow: 
+                0 0 10px rgba(255, 0, 200, 0.8),
+                0 0 20px rgba(0, 200, 255, 0.6);
+            animation: title-neon 2s infinite alternate;
+        }
+
+        @keyframes title-neon {
+            from { text-shadow: 0 0 10px rgba(255,0,200,0.8), 0 0 20px rgba(0,200,255,0.6); }
+            to { text-shadow: 0 0 15px rgba(0,255,200,0.9), 0 0 30px rgba(255,255,0,0.7); }
+        }
+
+        .olym-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            display: block;
+            margin: -10px 0;
+            transform: rotate(-5deg);
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255,255,255,0.6);
+        }
+
+        .rumba-text {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2.5rem;
+            color: #ffeb3b;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255,235,59,0.8);
+        }
+
+        .date-box {
+            background: linear-gradient(135deg, #ff006e, #8338ec);
+            color: white;
+            display: inline-block;
+            padding: 5px 20px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(255,0,110,0.6);
+        }
+
+        .price-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: #ffeb3b;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(255,235,59,0.8);
+        }
+
+        /* ✅ MOVIMIENTO EN "Prohibido perdérsela" */
+        .prohibido-text {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            display: inline-block;
+            animation: float-disco 2.5s ease-in-out infinite;
+        }
+
+        @keyframes float-disco {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-5px) rotate(-2deg) scale(1.02); }
+            50% { transform: translateY(0) rotate(0deg) scale(1); }
+            75% { transform: translateY(5px) rotate(2deg) scale(0.98); }
+        }
+
+        .location-text {
+            font-weight: 700;
+            font-size: 1.5rem;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px rgba(0,0,0,0.9);
+        }
+
+        .time-text {
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+
+        .dj-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #00e5ff;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(0,229,255,0.8);
+        }
+
+        .organizers {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        /* Botón de WhatsApp */
+        .whatsapp-btn {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+
+        .whatsapp-icon {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 8px;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-text {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+
+        @media (max-width: 576px) {
+            .party-title { font-size: 3rem; }
+            .olym-text { font-size: 3rem; }
+            .rumba-text { font-size: 2rem; }
+            .dj-name { font-size: 2.5rem; }
+            .whatsapp-icon { width: 60px; height: 60px; font-size: 32px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- GIF de Goku triste/suplicando -->
-        <img id="goku_triste" src="imagenes/goku_triste.gif" alt="Goku suplicando" class="goku-gif">
+    <div class="poster-container">
+        <img src="imagen/fondo.jpeg" alt="Fondo Party Olym Night" class="bg-image">
         
-        <!-- GIF de Goku feliz (oculto al inicio) -->
-        <img id="goku_feliz" src="imagenes/goku_feliz.gif" alt="Goku feliz" class="goku-gif oculto-img">
+        <div class="overlay"></div>
         
-        <h1 id="titulo">Hola soy Goku, perdónala por favor 🙏</h1>
+        <!-- ✅ EFECTO: HAZ DE LUZ GIRATORIO -->
+        <div class="disco-beam"></div>
         
-        <div class="botones" id="contenedorBotones">
-            <button id="btnSi">Está bien</button>
-            <button id="btnNo">No</button>
+        <!-- ✅ CONTAINER PARA PUNTOS DE LUZ (GENERADO POR JS) -->
+        <div id="disco-floor"></div>
+        
+        <div class="content">
+            
+            <p class="top-invite">estas invitad@ a la</p>
+
+            <div class="party-title">
+                PARTY
+                <span class="olym-text">Olym</span>
+                NIGHT
+            </div>
+
+            <div class="rumba-text">RUMBA PRIVADA</div>
+
+            <div class="date-box">
+                sábado 16 de mayo
+            </div>
+
+            <div class="price-text">1$ por persona</div>
+            
+            <!-- ✅ TEXTO CON MOVIMIENTO -->
+            <div class="prohibido-text">📌 Prohibido perdérsela</div>
+
+            <div class="location-text">
+                Casalta 2 •<br>
+                sector las taparitas • el plan
+            </div>
+
+            <div class="time-text">11:00 PM HASTA EL AMANECER</div>
+
+            <div class="dj-name">Dj Carlos</div>
+
+            <div class="organizers">
+                ORGANIZADORES:<br>
+                Gabriel e'gv • Luisiño e'gv • Carlos e'gv • Luis e'gv
+            </div>
+
+            <!-- Botón de WhatsApp -->
+            <a href="https://wa.me/04123703500" class="whatsapp-btn" target="_blank">
+                <div class="whatsapp-icon">
+                    <i class="bi bi-whatsapp"></i>
+                </div>
+                <span class="whatsapp-text">toca para mas info</span>
+            </a>
+
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-        const btnSi = document.getElementById('btnSi');
-        const btnNo = document.getElementById('btnNo');
-        const titulo = document.getElementById('titulo');
-        const contenedorBotones = document.getElementById('contenedorBotones');
-        const gokuTriste = document.getElementById('goku_triste');
-        const gokuFeliz = document.getElementById('goku_feliz');
+        document.addEventListener("DOMContentLoaded", function() {
+            // ✅ EFECTO DE DISCO BALL CON JS
+            const floorContainer = document.getElementById('disco-floor');
+            // Colores vibrantes para las luces
+            const colors = [
+                'rgba(255, 0, 0, 0.8)',   // Rojo
+                'rgba(0, 255, 0, 0.8)',   // Verde
+                'rgba(0, 0, 255, 0.8)',   // Azul
+                'rgba(255, 255, 0, 0.8)', // Amarillo
+                'rgba(255, 0, 255, 0.8)', // Rosa/Magenta
+                'rgba(0, 255, 255, 0.8)', // Cian
+                'rgba(255, 165, 0, 0.8)'  // Naranja
+            ];
 
-        // Lógica para el botón SÍ
-        btnSi.addEventListener('click', () => {
-            // Ocultar Goku triste y mostrar Goku feliz
-            gokuTriste.classList.add('oculto-img');
-            gokuFeliz.classList.remove('oculto-img');
-            
-            // Cambiar el mensaje
-            titulo.innerText = "¡Gracias guerrero Saiyajin! Ella te ama ❤️";
-            titulo.classList.add('mensaje-final');
-            
-            // Ocultar botones
-            contenedorBotones.classList.add('oculto');
-        });
+            const spots = [];
+            const numSpots = 12; // Cantidad de reflejos en el suelo
 
-        // Lógica para el botón NO (Huir del cursor)
-        function moverBoton() {
-            const anchoVentana = window.innerWidth;
-            const altoVentana = window.innerHeight;
+            // Crear las manchas de luz
+            for(let i = 0; i < numSpots; i++) {
+                const spot = document.createElement('div');
+                spot.classList.add('floor-light');
+                // Posición inicial aleatoria en el tercio inferior (suelo)
+                spot.style.bottom = Math.random() * 20 + '%';
+                spot.style.left = Math.random() * 100 + '%';
+                spot.style.width = (30 + Math.random() * 40) + 'px';
+                spot.style.height = (15 + Math.random() * 20) + 'px';
+                floorContainer.appendChild(spot);
+                
+                spots.push({
+                    element: spot,
+                    x: parseFloat(spot.style.left),
+                    y: parseFloat(spot.style.bottom),
+                    speedX: (Math.random() - 0.5) * 0.5, // Velocidad horizontal
+                    speedY: (Math.random() - 0.5) * 0.2, // Velocidad vertical
+                    colorIndex: Math.floor(Math.random() * colors.length)
+                });
+            }
 
-            const nuevaPosicionX = Math.random() * (anchoVentana - 150);
-            const nuevaPosicionY = Math.random() * (altoVentana - 50);
+            // Función de animación
+            function animate() {
+                spots.forEach((spot, index) => {
+                    // Mover
+                    spot.x += spot.speedX;
+                    spot.y += spot.speedY;
 
-            btnNo.style.position = 'absolute';
-            btnNo.style.left = nuevaPosicionX + 'px';
-            btnNo.style.top = nuevaPosicionY + 'px';
-        }
+                    // Rebotar en los bordes (o reaparecer)
+                    if(spot.x > 100 || spot.x < 0) spot.speedX *= -1;
+                    if(spot.y > 30 || spot.y < 0) spot.speedY *= -1;
 
-        btnNo.addEventListener('mouseover', moverBoton);
-        btnNo.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            moverBoton();
+                    // Actualizar posición
+                    spot.element.style.left = spot.x + '%';
+                    spot.element.style.bottom = spot.y + '%';
+
+                    // Cambiar color suavemente (efecto estroboscópico suave)
+                    if (Math.random() < 0.02) { // 2% de probabilidad por frame de cambiar color
+                        spot.element.style.background = `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]} 0%, transparent 70%)`;
+                    }
+                });
+
+                // Mover el haz de luz un poco para que parezca dinámico
+                const beam = document.querySelector('.disco-beam');
+                // Ya tiene animación CSS, pero podemos alterar la opacidad
+                if (Math.random() < 0.05) {
+                     beam.style.opacity = 0.5 + Math.random() * 0.5;
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            // Iniciar animación
+            animate();
+
+            // Animación de entrada del contenido
+            const elements = document.querySelectorAll('.content > div, .content > p, .content > a');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 100);
+            });
         });
     </script>
 </body>
