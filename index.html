@@ -20,7 +20,7 @@
             font-family: 'Montserrat', sans-serif;
             color: white;
             overflow-x: hidden;
-            background-color: #000; /* Fondo negro para resaltar luces */
+            background-color: #000;
         }
 
         .poster-container {
@@ -41,7 +41,7 @@
             object-fit: cover;
             object-position: center;
             z-index: 0;
-            filter: brightness(0.6); /* Oscurece un poco más la imagen para que resalten las luces */
+            filter: brightness(0.85);
         }
 
         .overlay {
@@ -50,42 +50,122 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.25);
             z-index: 1;
         }
 
-        /* ✅ EFECTO: FUOCO DE LUZ CENTRAL (CÓNO) */
-        .disco-beam {
+        /* ✅ LLUVIA DE ESTRELLAS */
+        .shooting-star {
             position: absolute;
-            top: -50px;
+            top: -100px;
+            width: 3px;
+            height: 100px;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 1) 0%,
+                rgba(255, 255, 255, 0.8) 50%,
+                transparent 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                        0 0 40px rgba(255, 255, 255, 0.5);
+            animation: fall linear infinite;
+            z-index: 1;
+            opacity: 0;
+        }
+
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 1000px;
-            height: 1000px;
-            background: conic-gradient(from 0deg at 50% 0%, 
-                transparent 0%, 
-                rgba(255, 255, 255, 0.1) 10%, 
-                transparent 20%);
-            z-index: 1;
-            pointer-events: none;
-            animation: beam-rotate 4s linear infinite;
-            mix-blend-mode: screen;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px white, 0 0 20px white;
         }
 
-        @keyframes beam-rotate {
-            0% { transform: translateX(-50%) rotate(0deg); }
-            100% { transform: translateX(-50%) rotate(360deg); }
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(45deg);
+                opacity: 1;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(120vh) rotate(45deg);
+                opacity: 0;
+            }
         }
 
-        /* ✅ EFECTO: MANCHAS DE LUZ EN EL PISO */
+        /* Colores vibrantes para las estrellas */
+        .star-blue { 
+            background: linear-gradient(to bottom, rgba(0, 150, 255, 1) 0%, rgba(0, 150, 255, 0.8) 50%, transparent 100%);
+            box-shadow: 0 0 20px rgba(0, 150, 255, 1), 0 0 40px rgba(0, 150, 255, 0.6);
+        }
+        .star-blue::before {
+            background: rgba(0, 150, 255, 1);
+            box-shadow: 0 0 10px rgba(0, 150, 255, 1), 0 0 20px rgba(0, 150, 255, 1);
+        }
+
+        .star-pink { 
+            background: linear-gradient(to bottom, rgba(255, 0, 150, 1) 0%, rgba(255, 0, 150, 0.8) 50%, transparent 100%);
+            box-shadow: 0 0 20px rgba(255, 0, 150, 1), 0 0 40px rgba(255, 0, 150, 0.6);
+        }
+        .star-pink::before {
+            background: rgba(255, 0, 150, 1);
+            box-shadow: 0 0 10px rgba(255, 0, 150, 1), 0 0 20px rgba(255, 0, 150, 1);
+        }
+
+        .star-yellow { 
+            background: linear-gradient(to bottom, rgba(255, 200, 0, 1) 0%, rgba(255, 200, 0, 0.8) 50%, transparent 100%);
+            box-shadow: 0 0 20px rgba(255, 200, 0, 1), 0 0 40px rgba(255, 200, 0, 0.6);
+        }
+        .star-yellow::before {
+            background: rgba(255, 200, 0, 1);
+            box-shadow: 0 0 10px rgba(255, 200, 0, 1), 0 0 20px rgba(255, 200, 0, 1);
+        }
+
+        .star-purple { 
+            background: linear-gradient(to bottom, rgba(180, 0, 255, 1) 0%, rgba(180, 0, 255, 0.8) 50%, transparent 100%);
+            box-shadow: 0 0 20px rgba(180, 0, 255, 1), 0 0 40px rgba(180, 0, 255, 0.6);
+        }
+        .star-purple::before {
+            background: rgba(180, 0, 255, 1);
+            box-shadow: 0 0 10px rgba(180, 0, 255, 1), 0 0 20px rgba(180, 0, 255, 1);
+        }
+
+        .star-cyan { 
+            background: linear-gradient(to bottom, rgba(0, 255, 255, 1) 0%, rgba(0, 255, 255, 0.8) 50%, transparent 100%);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 1), 0 0 40px rgba(0, 255, 255, 0.6);
+        }
+        .star-cyan::before {
+            background: rgba(0, 255, 255, 1);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 1), 0 0 20px rgba(0, 255, 255, 1);
+        }
+
+        .star-green { 
+            background: linear-gradient(to bottom, rgba(0, 255, 100, 1) 0%, rgba(0, 255, 100, 0.8) 50%, transparent 100%);
+            box-shadow: 0 0 20px rgba(0, 255, 100, 1), 0 0 40px rgba(0, 255, 100, 0.6);
+        }
+        .star-green::before {
+            background: rgba(0, 255, 100, 1);
+            box-shadow: 0 0 10px rgba(0, 255, 100, 1), 0 0 20px rgba(0, 255, 100, 1);
+        }
+
+        /* Manchas de luz en el piso */
         .floor-light {
             position: absolute;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
-            filter: blur(8px);
+            filter: blur(10px);
             pointer-events: none;
             z-index: 1;
-            opacity: 0.8;
+            opacity: 0.6;
         }
 
         .content {
@@ -103,6 +183,7 @@
             font-weight: 500;
             margin-bottom: 10px;
             letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .party-title {
@@ -111,15 +192,30 @@
             line-height: 0.9;
             text-transform: uppercase;
             margin-bottom: 0;
+            color: #ffffff;
             text-shadow: 
-                0 0 10px rgba(255, 0, 200, 0.8),
-                0 0 20px rgba(0, 200, 255, 0.6);
-            animation: title-neon 2s infinite alternate;
+                0 0 10px rgba(0, 255, 255, 0.8),
+                0 0 20px rgba(0, 255, 255, 0.6),
+                0 0 40px rgba(0, 255, 255, 0.4),
+                0 0 80px rgba(0, 255, 255, 0.2);
+            animation: neon-elegant 3s ease-in-out infinite;
         }
 
-        @keyframes title-neon {
-            from { text-shadow: 0 0 10px rgba(255,0,200,0.8), 0 0 20px rgba(0,200,255,0.6); }
-            to { text-shadow: 0 0 15px rgba(0,255,200,0.9), 0 0 30px rgba(255,255,0,0.7); }
+        @keyframes neon-elegant {
+            0%, 100% { 
+                text-shadow: 
+                    0 0 10px rgba(0, 255, 255, 0.8),
+                    0 0 20px rgba(0, 255, 255, 0.6),
+                    0 0 40px rgba(0, 255, 255, 0.4),
+                    0 0 80px rgba(0, 255, 255, 0.2);
+            }
+            50% { 
+                text-shadow: 
+                    0 0 15px rgba(0, 255, 255, 1),
+                    0 0 30px rgba(0, 255, 255, 0.8),
+                    0 0 60px rgba(0, 255, 255, 0.6),
+                    0 0 120px rgba(0, 255, 255, 0.4);
+            }
         }
 
         .olym-text {
@@ -142,7 +238,7 @@
         }
 
         .date-box {
-            background: linear-gradient(135deg, #ff006e, #8338ec);
+            background: linear-gradient(135deg, #00b4db, #0083b0);
             color: white;
             display: inline-block;
             padding: 5px 20px;
@@ -150,7 +246,7 @@
             font-size: 1.2rem;
             margin-bottom: 15px;
             border-radius: 4px;
-            box-shadow: 0 0 15px rgba(255,0,110,0.6);
+            box-shadow: 0 0 15px rgba(0, 180, 219, 0.6);
         }
 
         .price-text {
@@ -161,7 +257,6 @@
             text-shadow: 0 0 10px rgba(255,235,59,0.8);
         }
 
-        /* ✅ MOVIMIENTO EN "Prohibido perdérsela" */
         .prohibido-text {
             font-size: 1.1rem;
             margin-bottom: 25px;
@@ -181,7 +276,7 @@
             font-size: 1.5rem;
             line-height: 1.4;
             margin-bottom: 10px;
-            text-shadow: 0 0 8px rgba(0,0,0,0.9);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.7);
         }
 
         .time-text {
@@ -191,12 +286,28 @@
             opacity: 0.95;
         }
 
+        /* ✅ DJ CARLOS - TIPOGRAFÍA SERIA Y DORADA BRILLANTE */
         .dj-name {
-            font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
-            color: #00e5ff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
             margin-bottom: 15px;
-            text-shadow: 0 0 15px rgba(0,229,255,0.8);
+            background: linear-gradient(135deg, #ffd700, #ffea00, #ffcc00, #ffd700);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8))
+                    drop-shadow(0 0 15px rgba(255, 215, 0, 0.5))
+                    drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+            animation: gold-shine 3s linear infinite;
+        }
+
+        @keyframes gold-shine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
 
         .organizers {
@@ -243,11 +354,18 @@
         }
 
         @media (max-width: 576px) {
-            .party-title { font-size: 3rem; }
-            .olym-text { font-size: 3rem; }
-            .rumba-text { font-size: 2rem; }
-            .dj-name { font-size: 2.5rem; }
-            .whatsapp-icon { width: 60px; height: 60px; font-size: 32px; }
+            .party-title { font-size: 2.2rem; }
+            .olym-text { font-size: 2.2rem; margin: -5px 0; }
+            .rumba-text { font-size: 1.5rem; margin-top: 5px; margin-bottom: 8px; }
+            .date-box { font-size: 1rem; padding: 4px 15px; margin-bottom: 10px; }
+            .price-text { font-size: 1.8rem; margin-bottom: 3px; }
+            .prohibido-text { font-size: 0.9rem; margin-bottom: 15px; }
+            .location-text { font-size: 1.1rem; margin-bottom: 5px; }
+            .time-text { font-size: 0.85rem; margin-bottom: 8px; letter-spacing: 1px; }
+            .dj-name { font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 8px; }
+            .organizers { font-size: 0.75rem; margin-bottom: 5px; }
+            .whatsapp-icon { width: 50px; height: 50px; font-size: 28px; }
+            .whatsapp-text { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -258,10 +376,10 @@
         
         <div class="overlay"></div>
         
-        <!-- ✅ EFECTO: HAZ DE LUZ GIRATORIO -->
-        <div class="disco-beam"></div>
+        <!-- ✅ LLUVIA DE ESTRELLAS (Generado por JS) -->
+        <div id="star-container"></div>
         
-        <!-- ✅ CONTAINER PARA PUNTOS DE LUZ (GENERADO POR JS) -->
+        <!-- Container para puntos de luz -->
         <div id="disco-floor"></div>
         
         <div class="content">
@@ -282,8 +400,7 @@
 
             <div class="price-text">1$ por persona</div>
             
-            <!-- ✅ TEXTO CON MOVIMIENTO -->
-            <div class="prohibido-text">📌 Prohibido perdérsela</div>
+            <div class="prohibido-text"> Prohibido perdérsela</div>
 
             <div class="location-text">
                 Casalta 2 •<br>
@@ -315,78 +432,95 @@
     
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // ✅ EFECTO DE DISCO BALL CON JS
+            // ✅ CREAR LLUVIA DE ESTRELLAS
+            const starContainer = document.getElementById('star-container');
+            const starColors = ['star-blue', 'star-pink', 'star-yellow', 'star-purple', 'star-cyan', 'star-green'];
+            
+            function createShootingStar() {
+                const star = document.createElement('div');
+                star.classList.add('shooting-star');
+                
+                // Color aleatorio
+                const randomColor = starColors[Math.floor(Math.random() * starColors.length)];
+                star.classList.add(randomColor);
+                
+                // Posición horizontal aleatoria
+                star.style.left = Math.random() * 100 + '%';
+                
+                // Duración aleatoria (entre 1 y 2 segundos)
+                const duration = 1 + Math.random() * 1.5;
+                star.style.animationDuration = duration + 's';
+                
+                // Tamaño variable
+                const scale = 0.5 + Math.random() * 1;
+                star.style.transform = `scale(${scale})`;
+                
+                // Delay aleatorio
+                star.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                starContainer.appendChild(star);
+                
+                // Eliminar estrella después de la animación
+                setTimeout(() => {
+                    star.remove();
+                }, duration * 1000 + 500);
+            }
+
+            // Crear estrellas constantemente
+            setInterval(createShootingStar, 150); // Nueva estrella cada 150ms
+
+            // Efecto de manchas de luz en el suelo
             const floorContainer = document.getElementById('disco-floor');
-            // Colores vibrantes para las luces
             const colors = [
-                'rgba(255, 0, 0, 0.8)',   // Rojo
-                'rgba(0, 255, 0, 0.8)',   // Verde
-                'rgba(0, 0, 255, 0.8)',   // Azul
-                'rgba(255, 255, 0, 0.8)', // Amarillo
-                'rgba(255, 0, 255, 0.8)', // Rosa/Magenta
-                'rgba(0, 255, 255, 0.8)', // Cian
-                'rgba(255, 165, 0, 0.8)'  // Naranja
+                'rgba(0, 255, 0, 0.8)',
+                'rgba(255, 255, 0, 0.8)',
+                'rgba(255, 100, 0, 0.8)',
+                'rgba(0, 150, 255, 0.8)',
             ];
 
             const spots = [];
-            const numSpots = 12; // Cantidad de reflejos en el suelo
+            const numSpots = 8;
 
-            // Crear las manchas de luz
             for(let i = 0; i < numSpots; i++) {
                 const spot = document.createElement('div');
                 spot.classList.add('floor-light');
-                // Posición inicial aleatoria en el tercio inferior (suelo)
-                spot.style.bottom = Math.random() * 20 + '%';
+                spot.style.bottom = Math.random() * 25 + '%';
                 spot.style.left = Math.random() * 100 + '%';
-                spot.style.width = (30 + Math.random() * 40) + 'px';
-                spot.style.height = (15 + Math.random() * 20) + 'px';
+                spot.style.width = (60 + Math.random() * 60) + 'px';
+                spot.style.height = (30 + Math.random() * 30) + 'px';
                 floorContainer.appendChild(spot);
                 
                 spots.push({
                     element: spot,
                     x: parseFloat(spot.style.left),
                     y: parseFloat(spot.style.bottom),
-                    speedX: (Math.random() - 0.5) * 0.5, // Velocidad horizontal
-                    speedY: (Math.random() - 0.5) * 0.2, // Velocidad vertical
+                    speedX: (Math.random() - 0.5) * 0.5,
+                    speedY: (Math.random() - 0.5) * 0.2,
                     colorIndex: Math.floor(Math.random() * colors.length)
                 });
             }
 
-            // Función de animación
             function animate() {
-                spots.forEach((spot, index) => {
-                    // Mover
+                spots.forEach((spot) => {
                     spot.x += spot.speedX;
                     spot.y += spot.speedY;
 
-                    // Rebotar en los bordes (o reaparecer)
                     if(spot.x > 100 || spot.x < 0) spot.speedX *= -1;
-                    if(spot.y > 30 || spot.y < 0) spot.speedY *= -1;
+                    if(spot.y > 35 || spot.y < 0) spot.speedY *= -1;
 
-                    // Actualizar posición
                     spot.element.style.left = spot.x + '%';
                     spot.element.style.bottom = spot.y + '%';
 
-                    // Cambiar color suavemente (efecto estroboscópico suave)
-                    if (Math.random() < 0.02) { // 2% de probabilidad por frame de cambiar color
+                    if (Math.random() < 0.02) {
                         spot.element.style.background = `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]} 0%, transparent 70%)`;
                     }
                 });
 
-                // Mover el haz de luz un poco para que parezca dinámico
-                const beam = document.querySelector('.disco-beam');
-                // Ya tiene animación CSS, pero podemos alterar la opacidad
-                if (Math.random() < 0.05) {
-                     beam.style.opacity = 0.5 + Math.random() * 0.5;
-                }
-
                 requestAnimationFrame(animate);
             }
 
-            // Iniciar animación
             animate();
 
-            // Animación de entrada del contenido
             const elements = document.querySelectorAll('.content > div, .content > p, .content > a');
             elements.forEach((el, index) => {
                 el.style.opacity = '0';
